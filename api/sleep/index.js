@@ -57,7 +57,6 @@ router.put("/:id", (req, res) => {
     });
 
   router.delete("/:id", (req, res) => {
-    console.log(req.params);
     const { id } = req.params;
 
     Sleep.deleteSleep(id)
