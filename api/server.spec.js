@@ -13,7 +13,7 @@ describe("server.js", () => {
     });
   });
 
-  describe("Endpoint /api/users", () => {
+  describe("Endpoint /api/users/register", () => {
     beforeEach(async () => {
       await db("users").truncate();
     });
@@ -24,6 +24,34 @@ describe("server.js", () => {
         .send({ username: "testingUser", password: "testingPassword" });
 
       expect(response.status).toEqual(201);
+    });
+
+    it("should return a JSON object on successful registration", async () => {
+      const response = await request(server)
+        .post("/api/users/register")
+        .send({ username: "testingUser", password: "testingPassword" });
+
+      expect(response.type).toEqual("application/json");
+    });
+  });
+
+  describe("server.js", () => {
+    describe("/api/users/login", () => {
+      it("should return status code 200 on successful login", async () => {
+        const response = await request(server)
+          .post("/api/users/login")
+          .send({ username: "testingUser", password: "testingPassword" });
+
+        expect(response.status).toEqual(200);
+      });
+
+      it("should return a JSON object on successful login", async () => {
+        const response = await request(server)
+          .post("/api/users/login")
+          .send({ username: "testingUser", password: "testingPassword" });
+
+        expect(response.type).toEqual("application/json");
+      });
     });
   });
 });
