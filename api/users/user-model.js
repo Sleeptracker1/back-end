@@ -13,7 +13,7 @@ function getByID(id) {
 
 function addUser(user) {
   return db("users")
-    .insert(user)
+    .insert(user, 'id')
     .then(([id]) => {
       return getByID(id);
     });
