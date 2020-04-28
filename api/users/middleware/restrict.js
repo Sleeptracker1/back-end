@@ -21,7 +21,7 @@ const restrict = (req, res, next) => {
         }
 
         //can user user info if needed for other routes
-        const tokenPayload = decoded;
+        req.tokenPayload = decoded;
 
         next();
       }

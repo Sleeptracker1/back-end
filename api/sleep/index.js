@@ -4,9 +4,10 @@ const Sleep = require("../sleep/sleep-model");
 
 const router = express.Router();
 
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  Sleep.findSleepByUserId(id)
+router.get("/", (req, res) => {
+  console.log(req.tokenPayload);
+  const { user } = req.tokenPayload;
+  Sleep.findSleepByUserId(user)
     .then((sleep) => {
       res.status(200).json(sleep);
     })
