@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const usersRouter = require("./users/index");
 const sleepRouter = require("./sleep/index");
 
