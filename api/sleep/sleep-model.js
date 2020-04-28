@@ -12,7 +12,16 @@ module.exports = {
 
 function findSleepByUserId(user_id) {
   return db
-    .select("score", "start_time", "end_time", "notes")
+    .select(
+      "u.id as user_id",
+      "s.id as sleep_record_id",
+      "score",
+      "start_time",
+      "end_time",
+      "notes",
+      "created_at",
+      "updated_at"
+    )
     .from("sleep_details as s")
     .join("users as u", "u.id", "s.users_id")
     .where("u.id", user_id);

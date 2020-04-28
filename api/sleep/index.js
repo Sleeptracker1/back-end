@@ -56,6 +56,30 @@ router.put("/:id", (req, res) => {
       });
     });
 
+  router.patch("/:id", (req, res) => {
+    const changes = req.body;
+    const { id } = req.params;
+
+    Sleep.findSleepBySleepId(id)
+      .then((sleep) => {
+        if (sleep) {
+          Sleep.updateSleep(changes, id).then((updatedSleep) => {
+            res.status(200).json(updatedSleep);
+          });
+        } else {
+          res.status(404).json({
+            errorMessage: `There are no sleep records associated with ID ${id}.`,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          errorMessage: `There was an error while attempting to update this sleep record.`,
+        });
+      });
+  });
+
   router.delete("/:id", (req, res) => {
     const { id } = req.params;
 
