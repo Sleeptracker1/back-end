@@ -5,7 +5,6 @@ const Sleep = require("../sleep/sleep-model");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log(req.tokenPayload);
   const { user } = req.tokenPayload;
   Sleep.findSleepByUserId(user)
     .then((sleep) => {
