@@ -5,7 +5,6 @@ const server = require('../server')
 
 let token;
 
-
 beforeAll(async () => {
   await db('users').truncate()
 
