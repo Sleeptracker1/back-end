@@ -2,6 +2,8 @@ const express = require("express");
 
 const Sleep = require("../sleep/sleep-model");
 
+const sleepPostValidation = require("../../validationMiddleware/sleepValidation");
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -18,7 +20,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", sleepPostValidation, (req, res) => {
   const newSleepRecord = req.body;
 
   Sleep.addSleep(newSleepRecord)
