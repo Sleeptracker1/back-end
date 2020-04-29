@@ -37,28 +37,28 @@ describe("Sleep model", () => {
     })
   })
   
-  // describe('findSleepBySleepId', () => {
-  //   it("should return sleep entry with specified sleep entry ID", async () => {
+  describe('findSleepBySleepId', () => {
+    it("should return sleep entry with specified sleep entry ID", async () => {
 
-  //     const newUser = {
-  //       username: 'charlie',
-  //       password: 'pass123'
-  //     }
+      const newUser = {
+        username: 'charlie',
+        password: 'pass123'
+      }
 
-  //     await db('users').insert(newUser)
+      await db('users').insert(newUser)
       
-  //     const sleepEntry = { 
-  //       users_id: 1, 
-  //       score: "4", 
-  //       start_time: "00:17", 
-  //       end_time: "08:37" 
-  //     }
+      const sleepEntry = { 
+        users_id: 1, 
+        score: "4", 
+        start_time: "00:17", 
+        end_time: "08:37" 
+      }
       
-  //     await db('sleep_details').insert(sleepEntry)
+      await db('sleep_details').insert(sleepEntry)
 
-  //     const found = await Sleep.findSleepBySleepId(1).first()
+      const found = await Sleep.findSleepBySleepId(1).first()
 
-  //     expect(found.id).toEqual(1)
-  //   })
-  // })
+      expect(found.id).toEqual(1)
+    })
+  })
 })
