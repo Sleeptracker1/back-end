@@ -1,5 +1,3 @@
-const knex = require("knex");
-
 const db = require("../../data/dbconfig");
 
 module.exports = {
@@ -28,7 +26,7 @@ function findSleepByUserId(user_id) {
 }
 
 function findSleepBySleepId(sleep_id) {
-  return db("sleep_details").where("sleep_details.id", sleep_id);
+  return db("sleep_details").where("sleep_details.id", sleep_id).first();
 }
 
 function addSleep(newSleep) {
