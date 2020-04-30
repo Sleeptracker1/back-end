@@ -5,7 +5,7 @@ const restrict = (req, res, next) => {
   const authError = {
     message: "Invalid credentials.",
   };
-  const token = req.get("authorization");
+  const token = req.get("Authorization");
 
   try {
     if (!token) {

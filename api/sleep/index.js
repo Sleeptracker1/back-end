@@ -2,9 +2,13 @@ const express = require("express");
 
 const Sleep = require("../sleep/sleep-model");
 
+const sleepPostValidation = require("../../validationMiddleware/sleepPostValidation");
+const sleepUserVerification = require("../../validationMiddleware/sleepUserVerification");
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
+  console.log(req.tokenPayload);
   const { user } = req.tokenPayload;
   Sleep.findSleepByUserId(user)
     .then((sleep) => {
@@ -18,7 +22,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", sleepUserVerification, sleepPostValidation, (req, res) => {
   const newSleepRecord = req.body;
 
   Sleep.addSleep(newSleepRecord)
@@ -33,7 +37,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", sleepUserVerification, (req, res) => {
   const changes = req.body;
   const { id } = req.params;
 
@@ -56,7 +60,8 @@ router.put("/:id", (req, res) => {
       });
     });
 
-  router.patch("/:id", (req, res) => {
+  router.patch("/:id", sleepUserVerification, (req, res) => {
+    console.log(req.body);
     const changes = req.body;
     const { id } = req.params;
 
@@ -81,6 +86,7 @@ router.put("/:id", (req, res) => {
   });
 
   router.delete("/:id", (req, res) => {
+    console.log(req.params);
     const { id } = req.params;
 
     Sleep.deleteSleep(id)

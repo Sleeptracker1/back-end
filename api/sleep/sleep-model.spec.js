@@ -1,117 +1,110 @@
-const Sleep = require('./sleep-model')
-const db = require('../../data/dbconfig')
-
+const Sleep = require("./sleep-model");
+const db = require("../../data/dbconfig");
 
 describe("Sleep model", () => {
-  
   const cleanUp = async () => {
-    await db("sleep_details").truncate()
-    await db("users").truncate()
-  }
+    await db("sleep_details").truncate();
+    await db("users").truncate();
+  };
 
-  beforeEach(cleanUp)
-  afterAll(cleanUp)
-  
-  describe('findSleepByUserId', () => {
+  beforeEach(cleanUp);
+  afterAll(cleanUp);
+
+  describe("findSleepByUserId", () => {
     it("should return sleep entry with specified User ID", async () => {
-
       const newUser = {
-        username: 'charlie',
-        password: 'pass123'
-      }
+        username: "charlie",
+        password: "pass123",
+      };
 
-      await db('users').insert(newUser)
-      
-      const sleepEntry = { 
-        users_id: 1, 
-        score: "4", 
-        start_time: "00:17", 
-        end_time: "08:37" 
-      }
-      
-      await db('sleep_details').insert(sleepEntry)
+      await db("users").insert(newUser);
 
-      const found = await Sleep.findSleepByUserId(1).first()
+      const sleepEntry = {
+        users_id: 1,
+        score: "4",
+        start_time: "00:17",
+        end_time: "08:37",
+      };
 
-      expect(found.user_id).toEqual(1)
-    })
-  })
-  
-  describe('findSleepBySleepId', () => {
+      await db("sleep_details").insert(sleepEntry);
+
+      const found = await Sleep.findSleepByUserId(1).first();
+
+      expect(found.users_id).toEqual(1);
+    });
+  });
+
+  describe("findSleepBySleepId", () => {
     it("should return sleep entry with specified sleep entry ID", async () => {
-
       const newUser = {
-        username: 'charlie',
-        password: 'pass123'
-      }
+        username: "charlie",
+        password: "pass123",
+      };
 
+      await db("users").insert(newUser);
 
-      await db('users').insert(newUser)
-      
-      const sleepEntry = { 
-        users_id: 1, 
-        score: "4", 
-        start_time: "00:17", 
-        end_time: "08:37" 
-      }
-      
-      await db('sleep_details').insert(sleepEntry)
+      const sleepEntry = {
+        users_id: 1,
+        score: "4",
+        start_time: "00:17",
+        end_time: "08:37",
+      };
 
-      const found = await Sleep.findSleepBySleepId(1).first()
+      await db("sleep_details").insert(sleepEntry);
 
-      expect(found.id).toEqual(1)
-    })
-  })
-  
-    describe('addSleep', () => {
-      it("should add a sleep entry", async () => {
+      const found = await Sleep.findSleepBySleepId(1).first();
 
-        const newUser = {
-          username: 'charlie',
-          password: 'pass123'
-        }
-        await db('users').insert(newUser)
-        
-        const sleepEntry = { 
-          users_id: 1, 
-          score: "4", 
-          start_time: "00:17", 
-          end_time: "08:37" 
-        }
+      expect(found.id).toEqual(1);
+    });
+  });
 
-        const entries = await db('sleep_details')
-        expect(entries.length).toEqual(0)
+  describe("addSleep", () => {
+    it("should add a sleep entry", async () => {
+      const newUser = {
+        username: "charlie",
+        password: "pass123",
+      };
+      await db("users").insert(newUser);
 
-        await Sleep.addSleep(sleepEntry)
-        const updatedEntries = await db('sleep_details')
-        expect(updatedEntries.length).toEqual(1)
-      })
-    })
-  
-    describe('deleteSleep', () => {
-      it("should remove a sleep entry", async () => {
+      const sleepEntry = {
+        users_id: 1,
+        score: "4",
+        start_time: "00:17",
+        end_time: "08:37",
+      };
 
-        const newUser = {
-          username: 'charlie',
-          password: 'pass123'
-        }
-        await db('users').insert(newUser)
-        
-        const sleepEntry = { 
-          users_id: 1, 
-          score: "4", 
-          start_time: "00:17", 
-          end_time: "08:37" 
-        }
+      const entries = await db("sleep_details");
+      expect(entries.length).toEqual(0);
 
-        await db('sleep_details').insert(sleepEntry)
-        const entries = await db('sleep_details')
-        expect(entries.length).toEqual(1)
+      await Sleep.addSleep(sleepEntry);
+      const updatedEntries = await db("sleep_details");
+      expect(updatedEntries.length).toEqual(1);
+    });
+  });
 
-        await Sleep.deleteSleep(1)
+  describe("deleteSleep", () => {
+    it("should remove a sleep entry", async () => {
+      const newUser = {
+        username: "charlie",
+        password: "pass123",
+      };
+      await db("users").insert(newUser);
 
-        const updatedEntries = await db('sleep_details')
-        expect(updatedEntries.length).toEqual(0)
-      })
-    })
-})
+      const sleepEntry = {
+        users_id: 1,
+        score: "4",
+        start_time: "00:17",
+        end_time: "08:37",
+      };
+
+      await db("sleep_details").insert(sleepEntry);
+      const entries = await db("sleep_details");
+      expect(entries.length).toEqual(1);
+
+      await Sleep.deleteSleep(1);
+
+      const updatedEntries = await db("sleep_details");
+      expect(updatedEntries.length).toEqual(0);
+    });
+  });
+});
