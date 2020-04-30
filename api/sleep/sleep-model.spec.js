@@ -30,7 +30,7 @@ describe("Sleep model", () => {
 
       const found = await Sleep.findSleepByUserId(1).first();
 
-      expect(found.user_id).toEqual(1);
+      expect(found.users_id).toEqual(1);
     });
   });
 

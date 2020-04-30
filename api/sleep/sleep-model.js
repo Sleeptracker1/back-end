@@ -11,7 +11,7 @@ module.exports = {
 function findSleepByUserId(user_id) {
   return db
     .select(
-      "u.id as user_id",
+      "u.id as users_id",
       "s.id as sleep_record_id",
       "score",
       "start_time",

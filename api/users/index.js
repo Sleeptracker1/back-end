@@ -61,7 +61,7 @@ router.post("/login", authValidation, async (req, res) => {
 
     res.status(200).json({
       message: `Welcome ${username}`,
-      userId: user.id,
+      users_id: user.id,
       token: token,
     });
   } catch (err) {
