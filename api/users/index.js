@@ -49,7 +49,7 @@ router.post("/login", authValidation, async (req, res) => {
       return res.status(401).json(authError);
     }
 
-    const passwordValid = bcrypt.compare(password, user.password);
+    const passwordValid = bcrypt.compareSync(password, user.password);
 
     if (!passwordValid) {
       return res.status(401).json(authError);
